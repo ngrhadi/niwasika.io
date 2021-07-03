@@ -1,20 +1,10 @@
-/*
-=====
-DEPENDENCES
-=====
-*/
-
-/* 
-helper to reset default browser's styles from headings
-*/
-
 .r-title {
   margin-top: var(--rTitleMarginTop, 0) !important;
   margin-bottom: var(--rTitleMarginBottom, 0) !important;
 }
 
 /* 
-helper to hide elements that are available only for screen readers. 
+hide elements  
 */
 
 .screen-reader {
