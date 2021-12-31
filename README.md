@@ -1,16 +1,19 @@
-# Maps of Niwasika 
+# Maps of Niwasika
+
 created from scratch, still under development, plan list feature it's:
+
 - User Register
 - Emots Maps
 - Blogs
-- . . . . 
+- . . . .
 
 # Tech List
-- React/Next/Remix
+
+- React with vite
 - Mongoose-MongoDb
 - Express
 - Axios
-- Openlayers/Mapbox/Leaflet
+- Openlayers
 - Chacra-ui
 - . . . .
 
