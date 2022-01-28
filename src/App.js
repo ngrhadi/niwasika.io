@@ -1,8 +1,13 @@
+import React from 'react';
+import Maps from './component/Maps';
+import './App.css'
 
-function App() {
+const App = () => {
   return (
-    <div>
-    Hello SU
+    <div className="container">
+      <span>
+        <Maps/>
+      </span>
     </div>
   );
 }

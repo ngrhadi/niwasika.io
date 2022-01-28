@@ -1,0 +1,49 @@
+/* .container-app {
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 0;
+} */
+
+.map-container {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: absolute;
+  z-index: 0;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.togle-pole {
+  display: flex;
+  overflow: visible;
+  z-index: 1;
+  position: absolute;
+  top: 30px;
+  left: 10px;
+}
+
+.togle-demand {
+  display: flex;
+  overflow: visible;
+  z-index: 1;
+  position: inherit;
+  top: 30px;
+  right: 10px;
+}
+
+.clicked-coord-label {
+  display: flex;
+  overflow: visible;
+  z-index: 1;
+  position: absolute;
+  background-color: rgb(10, 10, 10);
+  top: 0;
+  left: 0;
+}
