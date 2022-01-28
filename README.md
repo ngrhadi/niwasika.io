@@ -9,8 +9,8 @@ created from scratch, still under development, plan list feature it's:
 
 # Tech List
 
-- React with vite
-- Mongoose-MongoDb
+- React
+- Mongoose-MongoDb / pg
 - Express
 - Axios
 - Openlayers
