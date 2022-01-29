@@ -6,14 +6,16 @@ import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import XYZ from 'ol/source/XYZ';
-import { transform } from 'ol/proj';
+import { fromLonLat, transform } from 'ol/proj';
 import { toStringXY } from 'ol/coordinate';
 import VectorSource from 'ol/source/Vector';
 import './Maps.css'
-import CanvasVectorLayerRenderer from 'ol/renderer/canvas/VectorLayer';
-import BaseVectorLayer from 'ol/layer/BaseVector';
+import VectorLayer from 'ol/layer/Vector';
+// import CanvasVectorLayerRenderer from 'ol/renderer/canvas/VectorLayer';
+// import BaseVectorLayer from 'ol/layer/BaseVector';
 
-export default function Maps() {
+
+export default function Maps({props}) {
     const [dataPole, setDataPole] = useState([])
     const [dataDemand, setDataDemand] = useState([])
     const [showPoleLayer, setShowPoleLayer] = useState([true])
@@ -22,44 +24,54 @@ export default function Maps() {
     const [ map, setMap ] = useState()
     const [ selectedCoord , setSelectedCoord ] = useState()
     
+    
     // pull refs
     const mapElement = useRef()
 
     const mapRef = useRef()
     mapRef.current = map
 
-    const buttonTile = useRef()
-
-    const initalFeaturesLayer = new BaseVectorLayer({
-        source: new VectorSource([])
-    })
-
+    //   const initalFeaturesLayer = new BaseVectorLayer({
+    //       source: new VectorSource([ 
+    //           new VectorLayer({
+    //             setDataPole(dataPole)
+    //             setDataDemand(dataDemand)
+    //           })
+    //       ])
+    //   })
+    const malaysia = [103, 2.6]
+    const centerMapOption = fromLonLat(malaysia)
+    
     useEffect(() => {
         const initialMap = new Map ({
             target: mapElement.current,
             view: new View({
-                center: [-1, 110],
-                zoom: 4,
+                center: centerMapOption,
+                zoom: 9,
             }),
             layers: [
                 new TileLayer({
-                    source: new OSM()
-                }),
-                // googleMaps = new TileLayer({
-                //     source: new XYZ({
-                //       url: 'http://mt0.google.com/vt/lyrs=p&hl=en&x={x}&y={y}&z={z}',
-                //     })
-                // }),
-            ],
-            controls: [],
-
-            dataPole,
-            dataDemand,
-        })
-
-        initialMap.on('mousemove', handleMapClick)
-        setDataPole(initalFeaturesLayer)
-        setDataDemand(initalFeaturesLayer)
+                    projection : 'ESPG : 4326',
+                        source: new OSM(),
+                    }),
+                    new VectorLayer({
+                        dataPole,
+                        dataDemand,
+                    })
+                    // // new TileLayer({
+                        // //     source: new XYZ({
+                            // //         url: 'http://mt0.google.com/vt/lyrs=p&hl=en&x={x}&y={y}&z={z}',
+                            // //     }),
+                            // //     projection : 'ESPG : 4326',
+                            // // }),
+                        ],
+                        controls: [],
+                        
+                    })
+                    
+        initialMap.on('click', handleMapClick)
+        setDataPole(initialMap)
+        setDataDemand(initialMap)
 
         setMap(initialMap)
 
@@ -71,50 +83,46 @@ export default function Maps() {
 
 
 
-        const handleMapClick = e => {
-            const clickedCoord = mapRef.current.getCoordinateFromPixel(e.pixel)
+        const handleMapClick = event => {
+            const clickedCoord = mapRef.current.getCoordinateFromPixel(event.pixel)
             const transormedCoord = transform(clickedCoord, 'EPSG:3857', 'EPSG:4326')
             setSelectedCoord( transormedCoord )
-            window.addEventListener('mousemove', handleMapClick)
-            console.log(handleMapClick);
-
-            return() => {
-                window.removeEventListener('mousemove', handleMapClick)
-        }
+            window.addEventListener('click', handleMapClick)
+            window.removeEventListener('click', handleMapClick)
+        
         }
         
 
-    console.log(dataPole);
-    console.log(dataDemand);
+    // console.log(dataPole);
+    // console.log(dataDemand);
   return (
   <div className="container-app">
-        <div className="map-container" ref={mapElement}>
+      <>
+        <div 
+            className="map-container"
+            ref={mapElement} 
+        >
             <div className="clicked-coord-label">
-                <p>{ (selectedCoord) ? toStringXY(selectedCoord, 5) : '' }</p>
+                <p className="item-coordinat-click">{(selectedCoord) ? toStringXY(selectedCoord, 5) : '' }</p>
+                {console.log(selectedCoord)}
             </div>
             {/* <div className="togle-pole">
                 <button onClick={() => setShowPoleLayer(!showPoleLayer)} >POLE VECTOR</button>
-                {dataPole && (
-                    <PoleVectorlayer
-                        longitude = {setDataPole.map && (el => el)}
-                        latitude = {setDataPole.map && (el => el)}
-                    >
-                    </PoleVectorlayer>
+                {dataPole.map && (
+                    <PoleVectorlayer/>
+                
                 )}
             </div>
             <br/>
             <div className="togle-demand">
                 <button onClick={() => setShowDemandLayer(!showDemandLayer)} >DEMAND VECTOR</button>
-                {dataDemand && (
-                    <DemandVectorlayer
-                        longitude = {setDataDemand.map && (el => el)}
-                        latitude = {setDataDemand.map && (el => el)}
-                    >
-                    </DemandVectorlayer>
+                {dataDemand.map && (
+                    <DemandVectorlayer/>
                 
                 )}
             </div> */}
         </div>
+      </>
   </div>
   );
 }

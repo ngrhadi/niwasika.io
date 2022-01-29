@@ -1,8 +1,9 @@
+import { fromLonLat } from 'ol/proj';
 import { useEffect } from 'react';
 
 const DemandVectorlayer = () => {
     async function demandData(){
-            demandData = await fetch('/demand')
+            await fetch('/demand')
             .then(demandData => demandData.json())
             .then(json => demandData = json.map(Object => Object))
             .finally()

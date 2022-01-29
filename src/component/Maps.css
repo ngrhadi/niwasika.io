@@ -39,11 +39,17 @@
 }
 
 .clicked-coord-label {
-  display: flex;
+  display: block;
   overflow: visible;
   z-index: 1;
   position: absolute;
   background-color: rgb(10, 10, 10);
-  top: 0;
-  left: 0;
+  color: aliceblue;
+  border-radius: 2px;
+  bottom: 0;
+  right: 0;
+}
+
+.item-coordinat-click {
+  margin: 5px;
 }
