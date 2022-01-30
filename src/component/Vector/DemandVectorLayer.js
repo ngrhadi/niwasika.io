@@ -1,5 +1,4 @@
-import { fromLonLat } from 'ol/proj';
-import { useEffect } from 'react';
+
 
 const DemandVectorlayer = () => {
     async function demandData(){
@@ -10,7 +9,7 @@ const DemandVectorlayer = () => {
             console.log(demandData);
     }
     
-    return demandData();
+    return demandData()
 }
 
 export default DemandVectorlayer;

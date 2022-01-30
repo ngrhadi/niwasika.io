@@ -15,7 +15,7 @@ import VectorLayer from 'ol/layer/Vector';
 // import BaseVectorLayer from 'ol/layer/BaseVector';
 
 
-export default function Maps({props}) {
+export default function Maps(props) {
     const [dataPole, setDataPole] = useState([])
     const [dataDemand, setDataDemand] = useState([])
     const [showPoleLayer, setShowPoleLayer] = useState([true])
@@ -35,7 +35,7 @@ export default function Maps({props}) {
     //       source: new VectorSource([ 
     //           new VectorLayer({
     //             setDataPole(dataPole)
-    //             setDataDemand(dataDemand)
+    //             // setDataDemand(dataDemand)
     //           })
     //       ])
     //   })
@@ -54,10 +54,8 @@ export default function Maps({props}) {
                     projection : 'ESPG : 4326',
                         source: new OSM(),
                     }),
-                    new VectorLayer({
-                        dataPole,
-                        dataDemand,
-                    })
+                        // dataPole,
+                        // dataDemand,
                     // // new TileLayer({
                         // //     source: new XYZ({
                             // //         url: 'http://mt0.google.com/vt/lyrs=p&hl=en&x={x}&y={y}&z={z}',
@@ -106,14 +104,14 @@ export default function Maps({props}) {
                 <p className="item-coordinat-click">{(selectedCoord) ? toStringXY(selectedCoord, 5) : '' }</p>
                 {console.log(selectedCoord)}
             </div>
-            {/* <div className="togle-pole">
-                <button onClick={() => setShowPoleLayer(!showPoleLayer)} >POLE VECTOR</button>
+            <div className="togle-pole">
+                <button onClick={() => setDataPole(!showPoleLayer)} >POLE VECTOR</button>
                 {dataPole.map && (
-                    <PoleVectorlayer/>
+                    console.log(dataPole)
                 
                 )}
             </div>
-            <br/>
+            {/* <br/>
             <div className="togle-demand">
                 <button onClick={() => setShowDemandLayer(!showDemandLayer)} >DEMAND VECTOR</button>
                 {dataDemand.map && (
